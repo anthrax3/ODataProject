@@ -45,7 +45,7 @@ namespace ODataProject
 				routeBuilder
 					.Expand()
 					.Select()
-					.Count(QueryOptionSetting.Allowed)
+					.Count()
 					.Filter()
 					.OrderBy()
 					.MaxTop(100);
