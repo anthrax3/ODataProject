@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
@@ -23,10 +24,7 @@ namespace ODataProject.Controllers
 		{
 			try
 			{
-				return await Task.Run<IActionResult>(() =>
-				{
-					return Ok(_ctx.Students);
-				});
+				return await Task.Run(() => Ok(_ctx.Students));
 			}
 			catch (Exception)
 			{

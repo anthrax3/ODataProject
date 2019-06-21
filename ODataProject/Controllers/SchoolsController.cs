@@ -23,10 +23,7 @@ namespace ODataProject.Controllers
 		{
 			try
 			{
-				return await Task.Run<IActionResult>(() =>
-				{
-					return Ok(_ctx.Schools);
-				});
+				return await Task.Run(() => Ok(_ctx.Schools));
 			}
 			catch (Exception)
 			{

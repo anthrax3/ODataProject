@@ -1,19 +1,15 @@
 ﻿using System.Linq;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ODataProject.Context;
 using ODataProject.Extensions;
 
 namespace ODataProject
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -49,7 +45,7 @@ namespace ODataProject
 				routeBuilder
 					.Expand()
 					.Select()
-					.Count()
+					.Count(QueryOptionSetting.Allowed)
 					.Filter()
 					.OrderBy()
 					.MaxTop(100);
