@@ -18,6 +18,11 @@ namespace ODataProject.Extensions
 			this IServiceCollection services,
 			IConfiguration config)
 		{
+			services.AddMvc(p => p.EnableEndpointRouting = false)
+				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+				.AddJsonOptions(options =>
+					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+			
 			services.AddDbContext<MyDbContext>(options =>
 			{
 				//options.UseLazyLoadingProxies(false);
@@ -25,11 +30,6 @@ namespace ODataProject.Extensions
 			});
 
 			services.AddOData();
-
-			services.AddMvc()
-				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-				.AddJsonOptions(options =>
-					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 		}
 
 	}

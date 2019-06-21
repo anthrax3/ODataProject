@@ -2,15 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.OData;
-using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Mvc;
 using ODataProject.Context;
 
 namespace ODataProject.Controllers
 {
-	[Route("api/[controller]")]
-    [ApiController]
-    public class StudentsController : ControllerBase
+    //[Route("api/students")]
+    //[ApiController]
+    public class StudentsController : ODataController //ControllerBase
     {
 		private readonly MyDbContext _ctx;
 
@@ -19,12 +18,13 @@ namespace ODataProject.Controllers
 			_ctx = ctx;
 		}
 
-		[EnableQuery(PageSize = 1000, AllowedQueryOptions = AllowedQueryOptions.All)]
-		public async Task<IActionResult> Get()
+		[EnableQuery]
+		[HttpGet]
+		public async Task<IQueryable> Get()
 		{
 			try
 			{
-				return await Task.Run(() => Ok(_ctx.Students));
+				return await Task.Run(() => _ctx.Students);
 			}
 			catch (Exception)
 			{

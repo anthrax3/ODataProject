@@ -1,11 +1,14 @@
 ﻿using System.Linq;
+using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OData.Edm;
 using ODataProject.Extensions;
+using ODataProject.Models;
 
 namespace ODataProject
 {
@@ -38,17 +41,16 @@ namespace ODataProject
 			}
 
 			app.UseHttpsRedirection();
+
+			var builder = new ODataConventionModelBuilder();
+			builder.EntitySet<Student>("Students");
+			builder.EntitySet<School>("Schools");
+
 			app.UseMvc(routeBuilder =>
 			{
+				routeBuilder.Expand().Select().Count().Filter().OrderBy().MaxTop(100);
+				routeBuilder.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 				routeBuilder.EnableDependencyInjection();
-
-				routeBuilder
-					.Expand()
-					.Select()
-					.Count()
-					.Filter()
-					.OrderBy()
-					.MaxTop(100);
 			});
 		}
 	}
