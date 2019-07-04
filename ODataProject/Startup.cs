@@ -48,7 +48,7 @@ namespace ODataProject
 
 			app.UseMvc(routeBuilder =>
 			{
-				routeBuilder.Expand().Select().Count().Filter().OrderBy().MaxTop(100);
+				routeBuilder.Expand().Select().Count(QueryOptionSetting.Allowed).Filter().OrderBy().MaxTop(100);
 				routeBuilder.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 				routeBuilder.EnableDependencyInjection();
 			});

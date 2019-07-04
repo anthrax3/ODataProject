@@ -4,10 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ODataProject.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ODataProject.Extensions
 {
@@ -18,14 +14,14 @@ namespace ODataProject.Extensions
 			this IServiceCollection services,
 			IConfiguration config)
 		{
-			services.AddMvc(p => p.EnableEndpointRouting = false)
+			services
+				.AddMvc(p => p.EnableEndpointRouting = false)
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
 				.AddJsonOptions(options =>
 					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 			
 			services.AddDbContext<MyDbContext>(options =>
 			{
-				//options.UseLazyLoadingProxies(false);
 				options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
 			});
 

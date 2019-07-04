@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ODataProject.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using ODataProject.Models.Seed;
 
 namespace ODataProject.Context
 {
@@ -25,6 +21,8 @@ namespace ODataProject.Context
 			modelBuilder.Entity<Student>()
 				.Property(x => x.StudentId)
 				.HasDefaultValueSql("NEWID()");
+
+			modelBuilder.Seed();
 		}
 	}
 }
