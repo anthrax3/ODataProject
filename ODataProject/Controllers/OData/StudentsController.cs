@@ -17,7 +17,7 @@ namespace ODataProject.Controllers.OData
 			_ctx = ctx;
 		}
 
-		[EnableQuery]
+		[EnableQuery(PageSize = 10)]
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
