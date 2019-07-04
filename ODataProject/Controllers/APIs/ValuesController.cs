@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using ODataProject.Context;
 
-namespace ODataProject.Controllers
+namespace ODataProject.Controllers.APIs
 {
-	//[Route("api/students")]
-	//[ApiController]
-	public class StudentsController : ODataController //ControllerBase
-    {
+	[Route("api/values")]
+	[ApiController]
+	public class ValuesController : ControllerBase
+	{
 		private readonly MyDbContext _ctx;
 
-		public StudentsController(MyDbContext ctx)
+		public ValuesController(MyDbContext ctx)
 		{
 			_ctx = ctx;
 		}
@@ -23,12 +23,12 @@ namespace ODataProject.Controllers
 		{
 			try
 			{
-				return await Task.Run(() => Ok(_ctx.Students));
+				return await Task.Run(() => Ok(_ctx.Schools));
 			}
 			catch (Exception)
 			{
 				throw;
 			}
 		}
-    }
+	}
 }
