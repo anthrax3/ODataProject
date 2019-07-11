@@ -14,6 +14,11 @@ namespace ODataProject.Extensions
 			this IServiceCollection services,
 			IConfiguration config)
 		{
+			services.AddCors(p => {
+				p.AddPolicy("myCors", x => {
+					x.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+				});
+			});
 			services
 				.AddMvc(p => p.EnableEndpointRouting = false)
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

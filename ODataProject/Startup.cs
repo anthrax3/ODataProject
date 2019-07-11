@@ -42,6 +42,8 @@ namespace ODataProject
 
 			app.UseHttpsRedirection();
 
+			app.UseCors("myCors");
+
 			var builder = new ODataConventionModelBuilder();
 			builder.EntitySet<Student>("Students");
 			builder.EntitySet<School>("Schools");
