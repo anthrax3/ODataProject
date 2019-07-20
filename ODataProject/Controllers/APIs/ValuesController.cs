@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using ODataProject.Context;
+using ODataProject.Models;
 
 namespace ODataProject.Controllers.APIs
 {
@@ -24,6 +25,41 @@ namespace ODataProject.Controllers.APIs
 			try
 			{
 				return await Task.Run(() => Ok(_ctx.Schools));
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetById(Guid id)
+		{
+			try
+			{
+				var school = await _ctx.Schools.FindAsync(id);
+
+				if(school == null)
+				{
+					return NotFound();
+				}
+
+				return Ok(school);
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Post(School school)
+		{
+			try
+			{
+				_ctx.Add(school);
+				await _ctx.SaveChangesAsync();
+				return CreatedAtAction(nameof(GetById), new { id = school.SchoolId }, school);
 			}
 			catch (Exception)
 			{
