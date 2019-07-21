@@ -32,7 +32,7 @@ namespace ODataProject.Controllers.APIs
 			}
 		}
 
-		[HttpGet]
+		[HttpGet("{id}")]
 		public async Task<IActionResult> GetById(Guid id)
 		{
 			try
