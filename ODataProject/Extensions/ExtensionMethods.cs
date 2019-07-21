@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.OData.Extensions;
+﻿using System;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +28,16 @@ namespace ODataProject.Extensions
 			
 			services.AddDbContext<MyDbContext>(options =>
 			{
-				options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+				options.UseSqlServer(
+					config.GetConnectionString("DefaultConnection"),
+					sqlServerOptionsAction: sqlOptions =>
+					{
+						sqlOptions.EnableRetryOnFailure(
+							maxRetryCount: 10,
+							maxRetryDelay: TimeSpan.FromSeconds(30),
+							errorNumbersToAdd: null
+						);
+					});
 			});
 
 			services.AddOData();
